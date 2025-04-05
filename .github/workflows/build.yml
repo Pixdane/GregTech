@@ -15,11 +15,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Declare some variables
+      - name: Set short git commit SHA
         id: vars
-        shell: bash
         run: |
-          echo "::set-output name=sha_short::$(git rev-parse --short $GITHUB_SHA)"
+          calculatedSha=$(git rev-parse --short ${{ github.sha }})
+          echo "COMMIT_SHORT_SHA=$calculatedSha" >> $GITHUB_ENV
 
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -45,5 +45,5 @@ jobs:
           fail_on_unmatched_files: true
           prerelease: true
           tag_name: "master"
-          name: "Beta Release Testing ${{ steps.vars.outputs.sha_short }}"
+          name: "Beta Release Testing ${{ env.COMMIT_SHORT_SHA }}"
           body: "Testing Pre-release"

@@ -83,3 +83,9 @@ run/
 logs/
 
 libs/
+
+# MacOS
+.DS_Store
+
+# Visual Studio Code
+.vscode/
